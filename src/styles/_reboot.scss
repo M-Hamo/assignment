@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+//////////////////////////////////////
+// REBOOT
+// Based on subset of normalize.css
+//////////////////////////////////////
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "serif";
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html:lang(ar)* {
+  text-align: right;
+}
+
+.hidden {
+  display: none !important;
+}
+button {
+  font-family: "serif" !important;
+}

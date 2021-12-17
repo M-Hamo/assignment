@@ -1,0 +1,111 @@
+<div class="flex-col justify-between items-center">
+  <!-- header -->
+  <div
+    class="
+      w-fill
+      h-30
+      flex
+      justify-center
+      items-center
+      font-bold
+      text-4xl text-white
+      p-2
+      bg-gray-800
+      rounded-3xl
+    "
+  >
+    New Person
+  </div>
+  <!-- body -->
+  <form [formGroup]="form" class="mt-2">
+    <div class="w-full">
+      <label for="name" class="block text-xl font-bold text-gray-700"
+        >Name*</label
+      >
+      <input
+        formControlName="name"
+        type="text"
+        id="name"
+        autocomplete="given-name"
+        class="
+          py-2
+          mt-1
+          border border-border-indigo-500
+          focus:ring-indigo-500 focus:border-indigo-500
+          block
+          w-full
+          text-7xl
+          font-medium
+          shadow-sm
+          sm:text-sm
+          border-gray-300
+          rounded-md
+          ease-in-out
+          indent-1
+        "
+      />
+    </div>
+    <div class="w-full">
+      <label for="first-name" class="block text-xl font-bold text-gray-700"
+        >Age*</label
+      >
+      <input
+        formControlName="age"
+        type="text"
+        id="first-name"
+        autocomplete="given-name"
+        class="
+          py-2
+          mt-1
+          border border-border-indigo-500
+          focus:ring-indigo-500 focus:border-indigo-500
+          block
+          w-full
+          text-7xl
+          font-medium
+          shadow-sm
+          sm:text-sm
+          border-gray-300
+          rounded-md
+        "
+      />
+    </div>
+    <div class="w-full">
+      <label for="gender" class="block text-xl font-bold text-gray-700"
+        >Gender*</label
+      >
+      <input
+        formControlName="gender"
+        type="text"
+        id="gender"
+        autocomplete="given-name"
+        class="
+          py-2
+          mt-1
+          border border-border-indigo-500
+          focus:ring-indigo-500 focus:border-indigo-500
+          block
+          w-full
+          text-7xl
+          font-medium
+          shadow-sm
+          sm:text-sm
+          border-gray-300
+          rounded-md
+        "
+      />
+    </div>
+  </form>
+  <!-- actions -->
+  <div class="flex justify-end items-center w-full h-10 gap-3 mt-3">
+    <app-button type="cancel" text="Cancel" (clicked)="onClick(null)">
+    </app-button>
+    <app-button
+      type="action"
+      text="Add"
+      toolTip="Add new person"
+      (clicked)="onClick(form?.value)"
+    >
+    </app-button>
+  </div>
+</div>

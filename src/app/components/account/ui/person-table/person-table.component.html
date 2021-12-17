@@ -1,0 +1,55 @@
+<table
+  *ngIf="elements?.length; else loading"
+  class="w-full"
+  mat-table
+  [dataSource]="elements"
+>
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>No.</th>
+    <td class="font-normal text-xl" mat-cell *matCellDef="let element">
+      {{ element?.id }}
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>Name</th>
+    <td class="font-normal text-xl" mat-cell *matCellDef="let element">
+      {{ element?.name }}
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>Age</th>
+    <td class="font-normal text-xl" mat-cell *matCellDef="let element">
+      {{ element?.age }}
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="symbol">
+    <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>
+      Gender
+    </th>
+    <td class="font-normal text-xl" mat-cell *matCellDef="let element">
+      {{ element?.gender }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<ng-template #loading>
+  <portal-shimmer-loading [loadingsCount]="5"></portal-shimmer-loading>
+</ng-template>
+
+<!-- <ng-container *ngIf="searchingProcess && elements?.length === 0">
+  <pw-no-data
+    icon="manage_search"
+    text="No person found..!"
+    buttonText="Person"
+  ></pw-no-data>
+</ng-container> -->

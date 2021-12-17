@@ -1,0 +1,72 @@
+<nav class="bg-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a
+          class="flex-shrink-0 cursor-pointer"
+          href="https://eldeeb.netlify.app/"
+          target="_blanc"
+        >
+          <img
+            class="h-8 w-8 rounded-full"
+            src="assets/profile.jpeg"
+            alt="Workflow"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="bg-white shadow">
+  <div
+    class="
+      flex flex-row
+      justify-between
+      items-center
+      max-w-7xl
+      mx-auto
+      py-6
+      px-4
+      sm:px-6
+      lg:px-8
+      gap-3
+    "
+  >
+    <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-row justify-between items-center min-w-max">
+        <mat-icon class="mr-2">language</mat-icon>
+        <h1 class="text-3xl font-bold text-gray-900">{{ title }}</h1>
+      </div>
+      <div class="ml-0.5 pl-2 font-semibold text-sm text-gray-700">
+        <ng-content select="[items-number]"></ng-content>
+      </div>
+    </div>
+    <input
+      *ngIf="showSearch"
+      type="text"
+      [formControl]="_searchInput"
+      class="
+        w-full
+        mt-1
+        px-3
+        py-2
+        border border-gray-300
+        rounded-full
+        text-sm
+        shadow-sm
+        placeholder-gray-400
+        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+        disabled:bg-gray-50
+        disabled:text-gray-500
+        disabled:border-gray-200
+        disabled:shadow-none
+        invalid:border-pink-500 invalid:text-pink-600
+        focus:invalid:border-pink-500 focus:invalid:ring-pink-500
+      "
+      [placeholder]="searchPlaceholder"
+    />
+
+    <ng-content select="[header-actions]"></ng-content>
+  </div>
+</header>

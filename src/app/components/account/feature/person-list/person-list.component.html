@@ -1,0 +1,37 @@
+<div class="min-h-full w-full flex flex-col">
+  <!-- custom header -->
+  <app-header
+    title="Person list"
+    [showSearch]="true"
+    searchPlaceholder="Search by name, age and gender ..."
+    (onSearch)="onSearch($event)"
+  >
+    <div items-number>
+      {{
+        shownPersonsLength$
+          | async
+          | showedElements: (personsTotalLength$ | async)
+      }}
+    </div>
+    <app-button
+      header-actions
+      type="action"
+      text="Person"
+      icon="add"
+      toolTip="Add new person"
+      (clicked)="onAddPerson()"
+    >
+    </app-button>
+  </app-header>
+
+  <main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-gray-700">
+      <div class="px-4 py-6 sm:px-0">
+        <!--Custom table -->
+        <app-person-table
+          [elements]="filteredPersons$ | async"
+        ></app-person-table>
+      </div>
+    </div>
+  </main>
+</div>
