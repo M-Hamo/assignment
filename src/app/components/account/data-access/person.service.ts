@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, throwError } from 'rxjs';
 
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
 import { ModalService } from 'src/shared/modals/modal.service';
 import { Person } from '../util/person.model';
 import { SubjectsService } from './subjects.service';
@@ -18,10 +17,10 @@ export class PersonService extends SubjectsService {
   ) {
     super();
   }
-  private readonly _url = environment.api_url;
+  private readonly api_url = 'http://smanager.sharewinds.tk/api/Subs';
 
   public getAllPersons$ = this._http
-    .get<Person[]>(`${this._url}/GetAllPersons`)
+    .get<Person[]>(`${this.api_url}/GetAllPersons`)
     .pipe(
       tap((persons: Person[]) => this.totalLenth.next(persons?.length)),
       catchError(this._handleError)
@@ -41,7 +40,7 @@ export class PersonService extends SubjectsService {
    * @returns Person
    */
   public addPerson(person: Person): Observable<Person> {
-    return this._http.post<Person>(`${this._url}/addNewPerson`, person).pipe(
+    return this._http.post<Person>(`${this.api_url}/addNewPerson`, person).pipe(
       tap((_) => {
         this.modalService.open('New person added successfully');
       }),
