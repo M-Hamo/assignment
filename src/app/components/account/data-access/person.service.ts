@@ -23,7 +23,7 @@ export class PersonService extends SubjectsService {
     .get<Person[]>(`${this.api_url}/GetAllPersons`)
     .pipe(
       tap((persons: Person[]) => this.totalLenth.next(persons?.length)),
-      catchError(this._handleError)
+      // catchError(this._handleError)
     );
 
   filteredPersons$ = combineLatest([this.params$, this.getAllPersons$]).pipe(
@@ -40,6 +40,7 @@ export class PersonService extends SubjectsService {
    * @returns Person
    */
   public addPerson(person: Person): Observable<Person> {
+    person.id = this.tLength + 1;
     return this._http.post<Person>(`${this.api_url}/addNewPerson`, person).pipe(
       tap((_) => {
         this.modalService.open('New person added successfully');
