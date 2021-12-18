@@ -26,7 +26,10 @@ export class PersonListComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.personService.filteredPersons$
-      .pipe(tap((persons: Person[]) => (this.filteredPersons = persons)))
+      .pipe(
+        tap((persons: Person[]) => (this.filteredPersons = persons)),
+        takeUntil(this._unsubscribeAll)
+      )
       .subscribe();
   }
 
