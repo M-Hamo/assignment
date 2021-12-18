@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     class="flex justify-center items-center h-10 min-w-max cursor-pointer rounded-full py-1 px-7 font-medium
   text-lg {{ type === 'action' ? typeAction : button }}"
     (click)="clicked.emit()"
+    [disabled]="disabled"
   >
     <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
     {{ text }}
@@ -17,6 +18,7 @@ export class ButtonComponent {
   @Input() public icon: string = '';
   @Input() public toolTip: string = '';
   @Input() public type: string = '';
+  @Input() public disabled: boolean = false;
 
   public readonly typeAction: string = `
   bg-gray-800

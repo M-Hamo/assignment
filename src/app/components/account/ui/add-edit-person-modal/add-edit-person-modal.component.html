@@ -43,16 +43,22 @@
           ease-in-out
           indent-1
         "
+        [ngClass]="{'  border-red-600':form.get('name')?.errors?.['required'] && form.get('name')?.touched}"
       />
+      <span
+        *ngIf="form.get('name')?.errors?.['required'] && form.get('name')?.touched"
+        class="text-sm text-red-600 flex justify-start items-center"
+        >Name is required*</span
+      >
     </div>
     <div class="w-full">
-      <label for="first-name" class="block text-xl font-bold text-gray-700"
+      <label for="age" class="block text-xl font-bold text-gray-700"
         >Age*</label
       >
       <input
         formControlName="age"
-        type="text"
-        id="first-name"
+        type="number"
+        id="age"
         autocomplete="given-name"
         class="
           py-2
@@ -68,19 +74,23 @@
           border-gray-300
           rounded-md
         "
+        [ngClass]="{ '  border-red-600': ageError !== '' }"
       />
+
+      <span class="text-sm text-red-600 flex justify-start items-center">{{
+        ageError
+      }}</span>
     </div>
     <div class="w-full">
       <label for="gender" class="block text-xl font-bold text-gray-700"
         >Gender*</label
       >
-      <input
+      <select
         formControlName="gender"
-        type="text"
         id="gender"
-        autocomplete="given-name"
         class="
-          py-2
+          select select-bordered
+          py-3
           mt-1
           border border-border-indigo-500
           focus:ring-indigo-500 focus:border-indigo-500
@@ -93,12 +103,22 @@
           border-gray-300
           rounded-md
         "
-      />
+        [ngClass]="{ '  border-red-600': form.get('gender')?.errors?.['required'] && form.get('gender')?.touched }"
+      >
+        <option disabled="" selected="">Choose your superpower</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
     </div>
   </form>
   <!-- actions -->
   <div class="flex justify-end items-center w-full h-10 gap-3 mt-3">
-    <app-button type="cancel" text="Cancel" (clicked)="onClick(null)">
+    <app-button
+      [disabled]="validForm"
+      type="cancel"
+      text="Cancel"
+      (clicked)="onClick(null)"
+    >
     </app-button>
     <app-button
       type="action"

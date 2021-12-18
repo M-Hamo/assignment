@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { ModalSize } from 'src/shared/util/modal-sizes.model';
 import { PersonService } from '../../data-access/person.service';
 import { AddEditPersonModalComponent } from '../../ui/add-edit-person-modal/add-edit-person-modal.component';
-import { concatMap, filter, takeUntil, tap } from 'rxjs/operators';
+import { concatMap, filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Person } from '../../util/person.model';
 @Component({
   selector: 'app-person-list',
@@ -18,13 +18,17 @@ export class PersonListComponent implements OnInit, OnDestroy {
   ) {}
   private _unsubscribeAll = new Subject<boolean>();
 
-  public filteredPersons$ = this.personService.filteredPersons$;
+  filteredPersons: Person[] = [];
 
   public shownPersonsLength$ = this.personService.lenth$;
 
   public personsTotalLength$ = this.personService.totalLenth$;
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.personService.filteredPersons$
+      .pipe(tap((persons: Person[]) => (this.filteredPersons = persons)))
+      .subscribe();
+  }
 
   public onSearch(search: number | string): void {
     this.personService.params.next(search);
@@ -40,10 +44,15 @@ export class PersonListComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         filter((value) => !!value),
-        tap((result: Person) => {
-          this.personService.addPerson(result);
-        }),
-        concatMap((_) => this.personService.getAllPersons$),
+        switchMap((result: Person) => this.personService.addPerson(result)),
+        concatMap((_) =>
+          this.personService.getAllPersons$.pipe(
+            tap((person: Person[]) => {
+              this.personService.lenth.next(person?.length);
+              this.filteredPersons = person;
+            })
+          )
+        ),
         takeUntil(this._unsubscribeAll)
       )
       .subscribe();

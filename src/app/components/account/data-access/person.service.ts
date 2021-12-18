@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  combineLatest, Observable, throwError } from 'rxjs';
+import { combineLatest, Observable, throwError } from 'rxjs';
 
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { ModalService } from 'src/shared/modals/modal.service';
@@ -21,7 +21,11 @@ export class PersonService extends SubjectsService {
 
   public params$ = this.params.asObservable();
 
-  public totalLenth$ = this.totalLenth.asObservable();
+  public totalLenth$ = this.totalLenth
+    .asObservable()
+    .pipe(tap((l) => (this.tLength = l)));
+
+  public tLength: number = 0;
 
   public lenth$ = this.lenth.asObservable();
 
