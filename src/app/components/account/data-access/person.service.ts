@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, throwError } from 'rxjs';
 
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { ModalService } from 'src/shared/modals/modal.service';
 import { Person } from '../util/person.model';
 import { SubjectsService } from './subjects.service';
