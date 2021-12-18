@@ -62,9 +62,9 @@ export class PersonService extends SubjectsService {
   private _handleError(err: any): Observable<never> {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${err.error.message}`;
+      errorMessage = `An error occurred: ${err?.error?.message}`;
     } else {
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+      errorMessage = `Backend returned code ${err?.status}: ${err?.body?.error}`;
     }
     console.error(err);
     return throwError(errorMessage);
