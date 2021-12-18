@@ -9,7 +9,6 @@ import { Person } from '../../util/person.model';
 @Component({
   selector: 'app-person-list',
   templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.scss'],
 })
 export class PersonListComponent implements OnInit, OnDestroy {
   public constructor(
@@ -18,23 +17,19 @@ export class PersonListComponent implements OnInit, OnDestroy {
   ) {}
   private _unsubscribeAll = new Subject<boolean>();
 
-  filteredPersons: Person[] = [];
-
   public shownPersonsLength$ = this.personService.lenth$;
 
   public personsTotalLength$ = this.personService.totalLenth$;
 
+  personList: Person[] = [];
+
   public ngOnInit(): void {
     this.personService.filteredPersons$
       .pipe(
-        tap((persons: Person[]) => (this.filteredPersons = persons)),
+        tap((persons: Person[]) => (this.personList = persons)),
         takeUntil(this._unsubscribeAll)
       )
       .subscribe();
-  }
-
-  public onSearch(search: number | string): void {
-    this.personService.params.next(search);
   }
 
   public onAddPerson(): void {
@@ -52,13 +47,17 @@ export class PersonListComponent implements OnInit, OnDestroy {
           this.personService.getAllPersons$.pipe(
             tap((person: Person[]) => {
               this.personService.lenth.next(person?.length);
-              this.filteredPersons = person;
+              this.personList = person;
             })
           )
         ),
         takeUntil(this._unsubscribeAll)
       )
       .subscribe();
+  }
+
+  public onSearch(search: number | string): void {
+    this.personService.params.next(search);
   }
 
   public ngOnDestroy(): void {

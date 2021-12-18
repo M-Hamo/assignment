@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -20,16 +20,14 @@ import { Person } from '../../util/person.model';
     `,
   ],
 })
-export class AddEditPersonModalComponent implements OnInit {
+export class AddEditPersonModalComponent {
   public constructor(
     public dialogRef: MatDialogRef<AddEditPersonModalComponent>,
     private readonly _fb: FormBuilder
   ) {}
   public readonly form: FormGroup = this._innitForm();
 
-  ngOnInit(): void {}
-
-  public onClick(value?: Person | null): void {
+  public onClose(value?: Person | null): void {
     if (this.form.valid && value) {
       this.dialogRef.close(value);
     }

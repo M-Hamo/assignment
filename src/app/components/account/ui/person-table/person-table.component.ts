@@ -1,17 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-person-table',
   templateUrl: './person-table.component.html',
 })
-export class PersonTableComponent implements OnInit {
+export class PersonTableComponent {
   public constructor() {}
 
   @Input() public elements: any;
 
   @Input() public searchingProcess: any = false;
 
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
-  public ngOnInit(): void {}
+  public displayedColumns: string[] = ['id', 'name', 'age', 'gender'];
 }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 
 export type SnackBarVariant = 'normal' | 'success' | 'error';
 
@@ -17,7 +15,7 @@ function _panelClass(variant: SnackBarVariant): string[] | undefined {
 export class ModalService {
   constructor(private readonly _snackBar: MatSnackBar) {}
 
-  open(message: string, variant?: any, duration = 1000): void {
+  open(message: string, variant?: any, duration = 1500): void {
     this._snackBar.open(message, 'Close', {
       direction: 'ltr',
       duration,

@@ -5,7 +5,7 @@
   [dataSource]="elements"
 >
   <!-- Position Column -->
-  <ng-container matColumnDef="position">
+  <ng-container matColumnDef="id">
     <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>No.</th>
     <td class="font-normal text-xl" mat-cell *matCellDef="let element">
       {{ element?.id }}
@@ -21,7 +21,7 @@
   </ng-container>
 
   <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
+  <ng-container matColumnDef="age">
     <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>Age</th>
     <td class="font-normal text-xl" mat-cell *matCellDef="let element">
       {{ element?.age }}
@@ -29,7 +29,7 @@
   </ng-container>
 
   <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
+  <ng-container matColumnDef="gender">
     <th class="font-medium text-2xl" mat-header-cell *matHeaderCellDef>
       Gender
     </th>
@@ -46,10 +46,3 @@
   <portal-shimmer-loading [loadingsCount]="5"></portal-shimmer-loading>
 </ng-template>
 
-<!-- <ng-container *ngIf="searchingProcess && elements?.length === 0">
-  <pw-no-data
-    icon="manage_search"
-    text="No person found..!"
-    buttonText="Person"
-  ></pw-no-data>
-</ng-container> -->

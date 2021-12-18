@@ -117,14 +117,14 @@
       [disabled]="validForm"
       type="cancel"
       text="Cancel"
-      (clicked)="onClick(null)"
+      (clicked)="onClose(null)"
     >
     </app-button>
     <app-button
       type="action"
       text="Add"
       toolTip="Add new person"
-      (clicked)="onClick(form?.value)"
+      (clicked)="onClose(form?.value)"
     >
     </app-button>
   </div>
