@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, throwError } from 'rxjs';
 
@@ -17,13 +17,20 @@ export class PersonService extends SubjectsService {
   ) {
     super();
   }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    }),
+  };
   private readonly api_url = 'http://smanager.sharewinds.tk/api/Subs';
 
   public getAllPersons$ = this._http
-    .get<Person[]>(`${this.api_url}/GetAllPersons`)
+    .get<Person[]>(`${this.api_url}/GetAllPersons`, this.httpOptions)
     .pipe(
       tap((persons: Person[]) => this.totalLenth.next(persons?.length)),
-      // catchError(this._handleError)
+      catchError(this._handleError)
     );
 
   filteredPersons$ = combineLatest([this.params$, this.getAllPersons$]).pipe(
@@ -41,12 +48,14 @@ export class PersonService extends SubjectsService {
    */
   public addPerson(person: Person): Observable<Person> {
     person.id = this.tLength + 1;
-    return this._http.post<Person>(`${this.api_url}/addNewPerson`, person).pipe(
-      tap((_) => {
-        this.modalService.open('New person added successfully');
-      }),
-      catchError(this._handleError)
-    );
+    return this._http
+      .post<Person>(`${this.api_url}/addNewPerson`, person, this.httpOptions)
+      .pipe(
+        tap((_) => {
+          this.modalService.open('New person added successfully');
+        }),
+        catchError(this._handleError)
+      );
   }
 
   private _filterPersons(persons: Person[], param: string | number): Person[] {
