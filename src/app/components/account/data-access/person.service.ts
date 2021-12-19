@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, throwError } from 'rxjs';
 
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/shared/modals/modal.service';
 import { Person } from '../util/person.model';
 import { SubjectsService } from './subjects.service';
@@ -24,7 +25,7 @@ export class PersonService extends SubjectsService {
       'Access-Control-Allow-Origin': '*',
     }),
   };
-  private readonly api_url = 'http://smanager.sharewinds.tk/api/Subs';
+  private readonly api_url = environment?.api_url;
 
   public getAllPersons$ = this._http
     .get<Person[]>(`${this.api_url}/GetAllPersons`, this.httpOptions)
