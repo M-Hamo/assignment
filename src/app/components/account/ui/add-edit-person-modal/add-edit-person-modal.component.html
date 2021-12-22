@@ -103,7 +103,7 @@
           border-gray-300
           rounded-md
         "
-        [ngClass]="{ '  border-red-600': form.get('gender')?.errors?.['required'] && form.get('gender')?.touched }"
+        [ngClass]="{ 'border-red-600': form.get('gender')?.errors?.['required'] && form.get('gender')?.touched }"
       >
         <option disabled="" selected="">Choose your superpower</option>
         <option value="male">Male</option>
@@ -114,16 +114,18 @@
   <!-- actions -->
   <div class="flex justify-end items-center w-full h-10 gap-3 mt-3">
     <app-button
-      [disabled]="validForm"
-      type="cancel"
+      inputClass="bg-red-500 text-white"
       text="Cancel"
-      (clicked)="onClose(null)"
+      (clicked)="onClose()"
     >
     </app-button>
     <app-button
-      type="action"
+      [disabled]="!validForm"
+      [inputClass]="
+        form?.invalid ? 'bg-gray-300 text-gray-400' : 'bg-gray-800 text-white'
+      "
       text="Add"
-      toolTip="Add new person"
+      [toolTip]="validForm ? 'Add new person' : 'Fill out the form then add'"
       (clicked)="onClose(form?.value)"
     >
     </app-button>

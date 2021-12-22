@@ -27,14 +27,16 @@ export class AddEditPersonModalComponent {
   ) {}
   public readonly form: FormGroup = this._innitForm();
 
-  public onClose(value?: Person | null): void {
-    if (this.form.valid && value) {
-      this.dialogRef.close(value);
-    }
-  }
-
   public get validForm(): boolean {
     return this.form?.valid;
+  }
+
+  public onClose(value?: Person): void {
+    if (this.validForm) this.dialogRef.close(value);
+    else {
+      this.form.reset({});
+      this.dialogRef.close();
+    }
   }
 
   public get ageError(): string {

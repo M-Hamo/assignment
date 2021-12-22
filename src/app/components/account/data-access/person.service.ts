@@ -53,7 +53,9 @@ export class PersonService extends SubjectsService {
       .post<Person>(`${this.api_url}/addNewPerson`, person, this.httpOptions)
       .pipe(
         tap((_) => {
-          this.modalService.open('New person added successfully');
+          this.modalService.open(
+            `New person with name ${person?.name} added successfully`
+          );
         }),
         catchError(this._handleError)
       );
